@@ -1,0 +1,69 @@
+
+Private Sub easy()
+
+    Dim ticker As String
+    Dim vol As Double
+    vol = 0
+
+    Dim Summary_Table_Row As Integer
+    Dim y_open As Double
+    Dim y_close As Double
+
+    Cells(1, 9).Value = "ticker"
+    Cells(1, 10).Value = "Y_change"
+    Cells(1, 12).Value = "Total Stock Vol"
+    Cells(1, 11).Value = "Y_percentage"
+
+    Summary_Table_Row = 2
+
+    For i = 2 To 797712
+
+      If y_open = 0 Then
+
+          y_open = Cells(i, 3).Value
+      End If
+
+      If Cells(i - 1, 1) = Cells(i, 1) And Cells(i + 1, 1).Value <> Cells(i, 1).Value Then
+
+          y_close = Cells(i, 6).Value
+          Y_change = y_close - y_open
+          y_percent = (y_close - y_open) / y_open
+          
+
+
+          ticker = Cells(i, 1).Value
+
+
+          vol = vol + Cells(i, 7).Value
+
+
+
+          Range("j" & Summary_Table_Row).Value = Y_change
+
+
+          Range("I" & Summary_Table_Row).Value = ticker
+
+          Range("K" & Summary_Table_Row).Value = y_percent
+
+
+
+          Range("L" & Summary_Table_Row).Value = vol
+
+          Summary_Table_Row = Summary_Table_Row + 1
+
+          vol = 0
+          
+          
+
+            y_open = Cells(i + 1, 3).Value
+      Else
+
+          vol = vol + Cells(i, 7).Value
+
+
+      End If
+
+
+    Next i
+
+End Sub
